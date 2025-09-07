@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Poem Generator 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #222;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff4081;
+    }
+
+    #poemBox {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 600px;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      white-space: pre-line;
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #ff4081;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #e73370;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ Birthday Poem Generator ✨</h1>
+  <div id="poemBox">Click the button to see a special birthday poem 💖</div>
+  <button onclick="generatePoem()">🎁 New Poem</button>
+
+  <script>
+    const poems = [
+      "🌸 Roses are red,\nViolets are blue,\nToday is your birthday,\nAnd I celebrate YOU! 💖",
+      "🎂 Another year older,\nAnother year bright,\nMay your dreams take flight,\nOn this magical night. ✨",
+      "💐 With laughter and cheer,\nAnd memories so true,\nMay happiness always,\nFind its way to you. 💕",
+      "🌟 Like stars in the sky,\nYour smile lights the way,\nWishing you joy,\nOn your special day. 🥳",
+      "🎁 Life is a journey,\nAnd you are the art,\nHappy Birthday Shruti,\nFrom the depths of my heart! 💖"
+    ];
+
+    function generatePoem() {
+      const randomIndex = Math.floor(Math.random() * poems.length);
+      document.getElementById("poemBox").innerText = poems[randomIndex];
+    }
+  </script>
+</body>
+</html>

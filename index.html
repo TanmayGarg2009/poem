@@ -15,39 +15,96 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #ff4081;
+      font-size: 3rem;
+      margin-bottom: 25px;
+      color: #ff2d75;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      animation: fadeInDown 1.2s ease;
     }
 
     #poemBox {
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 15px;
-      padding: 20px;
-      max-width: 600px;
-      font-size: 1.2rem;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 700px;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       white-space: pre-line;
-      min-height: 120px;
+      min-height: 150px;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      animation: fadeIn 1.5s ease;
+    }
+
+    #poemBox.show {
+      transform: scale(1.05);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
     button {
-      margin-top: 20px;
-      padding: 12px 25px;
-      background: #ff4081;
+      margin-top: 25px;
+      padding: 14px 30px;
+      background: linear-gradient(135deg, #ff5f9e, #ff2d75);
       border: none;
-      border-radius: 10px;
-      font-size: 1rem;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
       color: white;
       cursor: pointer;
       transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      animation: fadeInUp 1.5s ease;
     }
     button:hover {
-      background: #e73370;
-      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff2d75, #d4145a);
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Sparkle background animation */
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .sparkle {
+      position: absolute;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      animation: sparkle 6s linear infinite;
+    }
+
+    @keyframes sparkle {
+      from {
+        transform: translateY(0) scale(0.5);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -55,6 +112,9 @@
   <h1>✨ Birthday Poem Generator ✨</h1>
   <div id="poemBox">Click the button to see a special birthday poem 💖</div>
   <button onclick="generatePoem()">🎁 New Poem</button>
+
+  <!-- Sparkle background -->
+  <div class="sparkles" id="sparkles"></div>
 
   <script>
     const poems = [
@@ -67,7 +127,22 @@
 
     function generatePoem() {
       const randomIndex = Math.floor(Math.random() * poems.length);
-      document.getElementById("poemBox").innerText = poems[randomIndex];
+      const poemBox = document.getElementById("poemBox");
+      poemBox.innerText = poems[randomIndex];
+      poemBox.classList.add("show");
+      setTimeout(() => poemBox.classList.remove("show"), 800);
+    }
+
+    // Generate sparkles dynamically
+    const sparklesContainer = document.getElementById("sparkles");
+    for (let i = 0; i < 30; i++) {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.width = sparkle.style.height = Math.random() * 6 + 4 + "px";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.top = Math.random() * 100 + "vh";
+      sparkle.style.animationDuration = Math.random() * 4 + 4 + "s";
+      sparklesContainer.appendChild(sparkle);
     }
   </script>
 </body>
